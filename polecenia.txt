@@ -87,3 +87,68 @@ BackColor → IndianRed
 ForeColor → ControlText
 
 Dock → Bottom
+
+
+
+private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+{
+    FilterTasksByDateRange(e.Start, e.End);
+}
+
+private void FilterTasksByDateRange(DateTime startDate, DateTime endDate)
+{
+    foreach (ListViewItem item in listView1.Items)
+    {
+        DateTime taskDate = DateTime.Parse(item.SubItems[1].Text);
+        item.Visible = taskDate >= startDate && taskDate <= endDate;
+    }
+}
+
+private void FilterTasksByDateRange(DateTime startDate, DateTime endDate)
+{
+    foreach (ListViewItem item in listView1.Items)
+    {
+        DateTime taskDate = DateTime.Parse(item.SubItems[1].Text);
+        item.Visible = taskDate >= startDate && taskDate <= endDate;
+    }
+}
+
+private void UpdateBoldedDates()
+{
+    monthCalendar1.BoldedDates = listView1.Items
+        .Cast<ListViewItem>()
+        .Select(item => DateTime.Parse(item.SubItems[1].Text))
+        .Distinct()
+        .ToArray();
+}
+
+ Wywołaj UpdateBoldedDates() po dodaniu lub usunięciu zadania: Po dodaniu nowego zadania:
+
+csharp
+Kopiuj
+Edytuj
+UpdateBoldedDates();
+
+ Aktualizowanie pogrubienia po wczytaniu pliku CSV
+Jeśli wczytujesz dane z pliku, dodaj UpdateBoldedDates(); po załadowaniu listy:
+
+private void LoadFromFile(string filePath)
+{
+    listView1.Items.Clear();
+
+    using (var reader = new StreamReader(filePath))
+    using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+    {
+        var tasks = csv.GetRecords<TaskItem>().ToList();
+
+        foreach (var task in tasks)
+        {
+            var item = new ListViewItem("") { Checked = task.Done };
+            item.SubItems.Add(task.Date.ToShortDateString());
+            item.SubItems.Add(task.TaskDescription);
+            listView1.Items.Add(item);
+        }
+    }
+
+    UpdateBoldedDates(); // Dodaj to tutaj
+}
