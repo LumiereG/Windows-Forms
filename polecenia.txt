@@ -1,0 +1,89 @@
+Krok 1: Utworzenie projektu
+Otwórz Visual Studio.
+
+Kliknij "Create a new project".
+
+Wybierz "Windows Forms App (.NET Framework)" i kliknij "Next".
+
+Nazwij projekt (np. "CalendarApp") i kliknij "Create".
+
+Krok 2: Projektowanie interfejsu użytkownika
+1. Ustawienia głównego okna
+Kliknij Form1 w oknie „Solution Explorer”.
+
+W Properties, ustaw:
+
+Text → "Calendar Task Manager"
+
+Size → 800x500
+
+MinimumSize → 800x500
+
+2. Dodanie menu (MenuStrip)
+Przeciągnij MenuStrip na formularz.
+
+Kliknij "Type Here", dodaj opcję "File".
+
+Pod "File" dodaj dwie pozycje:
+
+"Load" (do ładowania pliku CSV)
+
+"Save" (do zapisywania pliku CSV)
+
+3. Dodanie kontenera (SplitContainer)
+Dodaj SplitContainer i ustaw:
+
+Dock → Fill
+
+Orientation → Vertical
+
+SplitterDistance → 300
+
+4. Dodanie kalendarza
+W Panel1 SplitContainera dodaj MonthCalendar.
+
+Ustaw Dock → Fill.
+
+5. Dodanie listy zadań (ListView)
+W Panel2 SplitContainera dodaj ListView.
+
+Ustaw:
+
+View → Details
+
+CheckBoxes → True
+
+FullRowSelect → True
+
+Dodaj kolumny:
+
+"Done" (50px)
+
+"Date" (100px)
+
+"Task" (500px)
+
+6. Dodanie przycisków "Add" i "Delete"
+Dodaj Button o nazwie "Add":
+
+Text → "Add"
+
+Size → 100x40
+
+BackColor → Green
+
+ForeColor → ButtonHighlight
+
+Dock → Bottom
+
+Dodaj Button o nazwie "Delete":
+
+Text → "Delete"
+
+Size → 100x40
+
+BackColor → IndianRed
+
+ForeColor → ControlText
+
+Dock → Bottom
